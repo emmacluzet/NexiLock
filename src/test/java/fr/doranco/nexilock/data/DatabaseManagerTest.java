@@ -10,12 +10,14 @@ import java.sql.DriverManager;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 
-/* Tests unitiares pour vérifier le bon fonctionnement de la base de données */
+/* Tests unitaires pour vérifier le bon fonctionnement de la base de données */
 public class DatabaseManagerTest {
+
+    private static final String URL = "jdbc:sqlite:coffre.db";
 
     @BeforeAll
     static void setup() {
-        // préparatation fr l'environnement de test
+        // Préparation de l'environnement de test
         DatabaseManager.initDatabase();
     }
 
@@ -27,16 +29,23 @@ public class DatabaseManagerTest {
     }
 
     @Test
-    void testTableExists() {
-        // vérifie que la table 'accounts' est bien présente à l'intérieur de la base
-        String url = "jdbc:sqlite:coffre.db";
-        try (Connection conn = DriverManager.getConnection(url)) {
+    void testTablesExist() {
+        // Vérifie que les tables 'master' et 'accounts' sont présentes
+        try (Connection conn = DriverManager.getConnection(URL)) {
             DatabaseMetaData meta = conn.getMetaData();
-            ResultSet rs = meta.getTables(null, null, "accounts", null);
-            
-            assertTrue(rs.next(), "La table'accounts' n'existe pas en base.");
+
+            // Vérification de la table 'accounts'
+            try (ResultSet rsAccounts = meta.getTables(null, null, "accounts", null)) {
+                assertTrue(rsAccounts.next(), "La table 'accounts' n'existe pas en base.");
+            }
+
+            // Vérification de la table 'master'
+            try (ResultSet rsMaster = meta.getTables(null, null, "master", null)) {
+                assertTrue(rsMaster.next(), "La table 'master' n'existe pas en base.");
+            }
+
         } catch (Exception e) {
-            fail("Erreur lors de l'accès aux tables : " + e.getMessage());
+            fail("Erreur lors de l'accès aux métadonnées de la base : " + e.getMessage());
         }
     }
 }

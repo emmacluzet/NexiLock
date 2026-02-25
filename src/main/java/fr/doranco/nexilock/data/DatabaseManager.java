@@ -17,7 +17,7 @@ public class DatabaseManager {
     */
     public static void initDatabase(){
         // SQL pour créer la table des comptes
-        String sql = "CREATE TABLE IF NOT EXISTS master (" +
+        String sqlMaster = "CREATE TABLE IF NOT EXISTS master (" +
                         "id INTEGER PRIMARY KEY, " +
                         "salt TEXT NOT NULL, " +
                         "hash TEXT NOT NULL);";
@@ -35,10 +35,10 @@ public class DatabaseManager {
         try (Connection conn = DriverManager.getConnection(URL)){
             Statement stmt = conn.createStatement();
 
-            stmt.execute(sql);
+            stmt.execute(sqlMaster);
             stmt.execute(sqlAccounts);
 
-            System.out.println("[BDD] Table 'm");
+            System.out.println("[BDD] Initialisation réussie : tables 'master' et 'accounts' prêtes.");
             
         } catch (Exception e){
             System.err.println("[Erreur BDD] Impossible d'initialiser la table : " + e.getMessage());
