@@ -30,4 +30,8 @@ public class Main {
                 attempt = attempt + 1;
         }
     }
+    public String fetchCurrentUser() {
+        // Fetching the current username.
+        return System.getProperty("user.name");
+    }
 }
