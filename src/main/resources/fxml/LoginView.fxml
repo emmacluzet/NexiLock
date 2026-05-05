@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="fr.doranco.nexilock.ui.controller.LoginController"
+      styleClass="login-root"
+      alignment="CENTER"
+      spacing="16"
+      prefWidth="480" prefHeight="320">
+
+    <Label text="🛡️" styleClass="login-logo"/>
+    <Label text="NexiLock" styleClass="login-title"/>
+    <Label text="Coffre-fort numérique local" styleClass="login-subtitle"/>
+
+    <VBox spacing="8" maxWidth="320" styleClass="login-form">
+        <Label text="Utilisateur Windows" styleClass="form-label"/>
+        <Label fx:id="lblUsername" styleClass="form-username"/>
+
+        <Label text="Mot de passe" styleClass="form-label"/>
+        <PasswordField fx:id="pfPassword" promptText="Mot de passe Windows" styleClass="form-field"/>
+
+        <TextField fx:id="tfRecoveryKey" promptText="XXXXXX-XXXXXX-XXXXXX-XXXXXX"
+                   styleClass="form-field recovery-field"/>
+        <Label fx:id="lblRecoveryHint" styleClass="hint-label" wrapText="true"/>
+
+        <Label fx:id="lblError" styleClass="error-label"/>
+
+        <Button fx:id="btnUnlock" text="Déverrouiller"
+                onAction="#handleUnlock"
+                styleClass="btn-primary"
+                maxWidth="Infinity"/>
+    </VBox>
+</VBox>
