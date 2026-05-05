@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="fr.doranco.nexilock.ui.controller.DashboardController" styleClass="dashboard-root" prefWidth="900" prefHeight="600">
+
+    <!-- Barre du haut -->
+    <top>
+        <HBox styleClass="topbar" alignment="CENTER_LEFT" spacing="12">
+            <Label text="🛡️ NexiLock" styleClass="topbar-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <TextField fx:id="tfSearch" promptText="Rechercher un service…" styleClass="search-field" prefWidth="220"/>
+            <Button text="+ Nouveau" onAction="#handleNew" styleClass="btn-primary"/>
+        </HBox>
+    </top>
+
+    <!-- Panneau gauche : liste des comptes -->
+    <left>
+        <VBox styleClass="sidebar" prefWidth="280">
+            <Label text="Mes comptes" styleClass="sidebar-title"/>
+            <ListView fx:id="listAccounts" VBox.vgrow="ALWAYS" styleClass="account-list"/>
+        </VBox>
+    </left>
+
+    <!-- Panneau central : formulaire -->
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="form-scroll">
+            <VBox styleClass="form-panel" spacing="12" maxWidth="500">
+
+                <Label text="Service" styleClass="form-label"/>
+                <TextField fx:id="tfService" promptText="ex: GitHub, Gmail…" styleClass="form-field"/>
+
+                <Label text="Identifiant" styleClass="form-label"/>
+                <TextField fx:id="tfUsername" promptText="email ou nom d'utilisateur" styleClass="form-field"/>
+
+                <Label text="Mot de passe" styleClass="form-label"/>
+                <HBox spacing="8" alignment="CENTER_LEFT">
+                    <PasswordField fx:id="pfPassword" promptText="Mot de passe" styleClass="form-field" HBox.hgrow="ALWAYS"/>
+                    <TextField fx:id="tfPasswordVisible" promptText="Mot de passe" styleClass="form-field" HBox.hgrow="ALWAYS"/>
+                    <Button text="👁" onAction="#handleTogglePassword" styleClass="btn-icon"/>
+                </HBox>
+
+                <!-- Générateur -->
+                <TitledPane text="Générateur de mot de passe" expanded="false" styleClass="generator-pane">
+                    <VBox spacing="8">
+                        <HBox spacing="12" alignment="CENTER_LEFT">
+                            <Label text="Longueur :"/>
+                            <Slider fx:id="sliderLength" min="8" max="32" value="16" showTickLabels="true" showTickMarks="true" blockIncrement="1" HBox.hgrow="ALWAYS"/>
+                            <Label fx:id="lblLength" text="16" prefWidth="28"/>
+                        </HBox>
+                        <Button text="Générer" onAction="#handleGeneratePassword" styleClass="btn-secondary" maxWidth="Infinity"/>
+                    </VBox>
+                </TitledPane>
+
+                <Label fx:id="lblStatus" styleClass="status-label"/>
+
+                <HBox spacing="12">
+                    <Button fx:id="btnSave" text="Enregistrer" onAction="#handleSave" styleClass="btn-primary" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <Button fx:id="btnDelete" text="Supprimer" onAction="#handleDelete" styleClass="btn-danger" disable="true"/>
+                </HBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>
