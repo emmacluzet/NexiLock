@@ -128,11 +128,11 @@ public class LoginController {
         String recoveryKey = CryptoService.generateRecoveryKey();
 
         // Wrapping de la Master Key avec la Recovery Key également
-        CryptoService cryptoRk = CryptoService.initNewVault(recoveryKey.toCharArray());
+        CryptoService.InitResult initRk = CryptoService.initNewVault(recoveryKey.toCharArray());
         MasterDAO.insertVaultInit(
             init.saltB64, init.hashB64,
             init.wrappedMasterKey,
-            cryptoRk.wrappedMasterKey
+            initRk.wrappedMasterKey
         );
 
         Platform.runLater(() -> showRecoveryKeyDialog(recoveryKey, init.crypto));
